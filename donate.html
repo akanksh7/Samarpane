@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Samarpane</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Lora', serif;
+            --primary: #2c6bed;
+            --secondary: #34c759;
+            --dark: #333;
+            --light: #fff;
+            --gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--body-font);
+        }
+
+        /* Navbar styles (keeping consistent with main page) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            font-family: var(--heading-font);
+        }
+
+        /* Donation Section Styles */
+        .donation-container {
+            padding-top: 100px;
+            min-height: 100vh;
+            background-color: var(--gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .donation-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 20px;
+        }
+
+        .donation-header h1 {
+            font-family: var(--heading-font);
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .donation-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .donation-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 90%;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+
+        .donation-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .donation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .donation-card h2 {
+            color: var(--primary);
+            font-family: var(--heading-font);
+            margin-bottom: 1rem;
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .amount-btn {
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            background: none;
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .amount-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .custom-amount {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .donate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .donate-btn:hover {
+            background: #2da84e;
+        }
+
+        .bank-details {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .bank-details h2 {
+            color: var(--primary);
+            font-family: var(--heading-font);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .bank-info {
+            line-height: 1.8;
+        }
+
+        .bank-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .donation-header h1 {
+                font-size: 2rem;
+            }
+
+            .donation-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Back to Home Button Styles */
+        .back-home {
+            position: fixed;
+            top: 100px; /* Below the navbar */
+            left: 20px;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-home:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Add arrow icon */
+        .back-home::before {
+            content: '←';
+            font-size: 1.2rem;
+        }
+
+        /* Responsive adjustment */
+        @media (max-width: 768px) {
+            .back-home {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .back-home:hover {
+                transform: translateX(-50%) translateY(-2px);
+            }
+        }
+
+        .about {
+            padding: 5rem 5%;
+            background-color: #f8f9fa;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .about-content p {
+            font-family: var(--body-font);
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+            letter-spacing: 0.3px;
+        }
+
+        .about-welcome {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .about-welcome p {
+            font-family: var(--body-font);
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+        }
+
+        .signature {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            color: var(--primary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-content p,
+            .about-welcome p {
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+
+            .about {
+                padding: 3rem 5%;
+            }
+
+            .signature {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* For larger screens */
+        @media (min-width: 1200px) {
+            .about-content p,
+            .about-welcome p {
+                font-size: 1.35rem;
+                line-height: 1.9;
+            }
+
+            .signature {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">Back to Home</a>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Samarpane Logo" class="logo-img">
+            <span>Samarpane</span>
+        </div>
+    </nav>
+
+    <div class="donation-container">
+        <div class="donation-header">
+            <h1>Make a Difference Today</h1>
+            <p>Your contribution helps us continue our mission of educating and improving the health of underprivileged children across India.</p>
+        </div>
+
+        <div class="donation-options">
+            <div class="donation-card">
+                <h2>One-Time Donation</h2>
+                <p>Make an immediate impact with your contribution</p>
+                <div class="amount-options">
+                    <button class="amount-btn">₹500</button>
+                    <button class="amount-btn">₹1000</button>
+                    <button class="amount-btn">₹2000</button>
+                    <button class="amount-btn">₹5000</button>
+                </div>
+                <input type="number" class="custom-amount" placeholder="Enter custom amount">
+                <button class="donate-btn">Donate Now</button>
+            </div>
+
+            <div class="donation-card">
+                <h2>Monthly Donation</h2>
+                <p>Join our community of regular supporters</p>
+                <div class="amount-options">
+                    <button class="amount-btn">₹200/mo</button>
+                    <button class="amount-btn">₹500/mo</button>
+                    <button class="amount-btn">₹1000/mo</button>
+                    <button class="amount-btn">₹2000/mo</button>
+                </div>
+                <input type="number" class="custom-amount" placeholder="Enter custom amount">
+                <button class="donate-btn">Become a Monthly Donor</button>
+            </div>
+        </div>
+
+        <div class="bank-details">
+            <h2>Bank Transfer Details</h2>
+            <div class="bank-info">
+                <p><strong>Account Name:</strong> Samarpane Foundation</p>
+                <p><strong>Account Number:</strong> XXXX XXXX XXXX</p>
+                <p><strong>IFSC Code:</strong> XXXX0000XXX</p>
+                <p><strong>Bank Name:</strong> XXX Bank</p>
+                <p><strong>Branch:</strong> XXXXX Branch</p>
+                <p><strong>Account Type:</strong> Savings Account</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
